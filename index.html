@@ -1,4 +1,10 @@
-<title>KartuLat</title>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KartuLat — Грузинский транслитератор</title>
+<meta name="description" content="Переводите грузинский текст, написанный латиницей, на любой язык. Транслитерация онлайн и офлайн.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%238B1E1E'/%3E%3Ctext x='50' y='82' font-family='Georgia,serif' font-size='78' font-weight='700' fill='white' text-anchor='middle'%3Eკ%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%238B1E1E'/%3E%3Ctext x='50' y='82' font-family='Georgia,serif' font-size='78' font-weight='700' fill='white' text-anchor='middle'%3Eკ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -6,37 +12,26 @@
 
 <style>
 :root {
-  --bg:       #F5F4F2;
-  --surface:  #FFFFFF;
-  --s2:       #F7F6F4;
-  --s3:       #EFEDEB;
-  --text:     #1C1917;
-  --t2:       #57534E;
-  --t3:       #A8A29E;
-  --accent:   #8B1E1E;
-  --accent2:  #B02A2A;
-  --gold:     #B5863A;
-  --b1:       rgba(0,0,0,.08);
-  --b2:       rgba(0,0,0,.05);
-  --sm:       0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --md:       0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
-  --lg:       0 24px 64px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);
-  --xl:       0 40px 80px rgba(0,0,0,.16),0 8px 24px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.05);
-  --r:        18px;
-  --rl:       24px;
-  --f:        'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-  --fg:       'Noto Serif Georgian',Georgia,serif;
+  --bg:#F5F4F2;--surface:#FFFFFF;--s2:#F7F6F4;--s3:#EFEDEB;
+  --text:#1C1917;--t2:#57534E;--t3:#A8A29E;
+  --accent:#8B1E1E;--accent2:#B02A2A;--gold:#B5863A;
+  --b1:rgba(0,0,0,.08);--b2:rgba(0,0,0,.05);
+  --sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --md:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  --lg:0 24px 64px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);
+  --xl:0 40px 80px rgba(0,0,0,.16),0 8px 24px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.05);
+  --r:18px;--rl:24px;
+  --f:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --fg:'Noto Serif Georgian',Georgia,serif;
 }
-@media(prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0E0D0C;--surface:#1A1917;--s2:#211F1D;--s3:#2A2826;
-    --text:#FAFAF9;--t2:#A8A29E;--t3:#57534E;
-    --accent:#C23B3B;--accent2:#D94F4F;
-    --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.04);
-    --lg:0 24px 64px rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.05);
-    --xl:0 40px 80px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.06);
-  }
-}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E0D0C;--surface:#1A1917;--s2:#211F1D;--s3:#2A2826;
+  --text:#FAFAF9;--t2:#A8A29E;--t3:#57534E;
+  --accent:#C23B3B;--accent2:#D94F4F;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.04);
+  --lg:0 24px 64px rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.05);
+  --xl:0 40px 80px rgba(0,0,0,.6),0 8px 24px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.06);
+}}
 :root[data-theme="dark"]{
   --bg:#0E0D0C;--surface:#1A1917;--s2:#211F1D;--s3:#2A2826;
   --text:#FAFAF9;--t2:#A8A29E;--t3:#57534E;
@@ -51,321 +46,188 @@ html{font-size:16px;-webkit-text-size-adjust:100%}
 body{font-family:var(--f);background:var(--bg);color:var(--text);line-height:1.5;min-height:100dvh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 
 /* NAV */
-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 24px;position:sticky;top:0;z-index:50;
-  background:rgba(245,244,242,.88);
-  backdrop-filter:blur(20px) saturate(180%);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  border-bottom:1px solid var(--b1);
-}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;position:sticky;top:0;z-index:50;background:rgba(245,244,242,.88);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--b1)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) nav{background:rgba(14,13,12,.88)}}
 :root[data-theme="dark"] nav{background:rgba(14,13,12,.88)}
 
-/* LOGO */
 .logo{display:flex;align-items:baseline;gap:0;text-decoration:none;line-height:1}
-.logo-k{
-  font-family:var(--fg);
-  font-size:2.05rem;
-  font-weight:700;
-  color:var(--accent);
-  line-height:.85;
-  margin-right:1px;
-  /* Drop-cap style: sits lower than text baseline */
-  position:relative;
-  top:3px;
-}
+.logo-k{font-family:var(--fg);font-size:2.05rem;font-weight:700;color:var(--accent);line-height:.85;margin-right:1px;position:relative;top:3px}
 .logo-artu{font-size:1.1rem;font-weight:600;color:var(--text);letter-spacing:-.025em}
 .logo-lat{font-size:1.1rem;font-weight:300;color:var(--accent);letter-spacing:-.01em}
 
-/* Nav right */
 .nav-r{display:flex;align-items:center;gap:8px}
 
-/* UI language picker */
+/* UI lang dropdown */
 .ui-lang-wrap{position:relative}
-.ui-lang-btn{
-  display:flex;align-items:center;gap:6px;
-  background:var(--surface);border:1px solid var(--b1);
-  border-radius:9px;padding:6px 10px;
-  font-family:var(--f);font-size:.78rem;font-weight:500;
-  color:var(--t2);cursor:pointer;box-shadow:var(--sm);
-  transition:background .15s,color .15s;
-  white-space:nowrap;
-}
+.ui-lang-btn{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--b1);border-radius:9px;padding:6px 10px;font-family:var(--f);font-size:.78rem;font-weight:500;color:var(--t2);cursor:pointer;box-shadow:var(--sm);transition:background .15s,color .15s;white-space:nowrap}
 .ui-lang-btn:hover{background:var(--s2);color:var(--text)}
-.ui-lang-btn svg{flex-shrink:0}
-.ui-lang-drop{
-  display:none;
-  position:absolute;top:calc(100% + 6px);right:0;
-  background:var(--surface);border:1px solid var(--b1);
-  border-radius:12px;box-shadow:var(--lg);
-  padding:6px;min-width:180px;z-index:100;
-}
+.ui-lang-drop{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1px solid var(--b1);border-radius:12px;box-shadow:var(--lg);padding:6px;min-width:180px;z-index:100}
 .ui-lang-drop.open{display:block}
-.ui-lang-opt{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 12px;border-radius:8px;
-  font-size:.84rem;font-weight:500;color:var(--text);
-  cursor:pointer;transition:background .12s;
-}
+.ui-lang-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:.84rem;font-weight:500;color:var(--text);cursor:pointer;transition:background .12s}
 .ui-lang-opt:hover{background:var(--s2)}
 .ui-lang-opt.sel{background:var(--s3);font-weight:600}
-.ui-lang-opt .flag{font-size:1rem}
 
-.btn-icon{
-  width:34px;height:34px;
-  background:var(--surface);border:1px solid var(--b1);
-  border-radius:9px;color:var(--t2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;box-shadow:var(--sm);
-  transition:background .15s,color .15s;
-}
+.btn-icon{width:34px;height:34px;background:var(--surface);border:1px solid var(--b1);border-radius:9px;color:var(--t2);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sm);transition:background .15s,color .15s}
 .btn-icon:hover{background:var(--s2);color:var(--text)}
 
 /* HERO */
-.hero{padding:64px 24px 72px;text-align:center;position:relative;overflow:hidden}
-.hero-glow{
-  position:absolute;width:700px;height:280px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(139,30,30,.07) 0%,transparent 70%);
-  top:50%;left:50%;transform:translate(-50%,-55%);pointer-events:none;
-}
-.hero h1{
-  font-size:clamp(2.4rem,7.5vw,4.6rem);font-weight:600;
-  letter-spacing:-.04em;line-height:1.06;color:var(--text);
-  margin-bottom:18px;text-wrap:balance;
-}
+.hero{padding:48px 20px 56px;text-align:center;position:relative;overflow:hidden}
+.hero-glow{position:absolute;width:700px;height:280px;border-radius:50%;background:radial-gradient(ellipse,rgba(139,30,30,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-55%);pointer-events:none}
+.hero h1{font-size:clamp(2rem,7.5vw,4.6rem);font-weight:600;letter-spacing:-.04em;line-height:1.06;color:var(--text);margin-bottom:16px;text-wrap:balance}
 .hero h1 em{font-style:normal;font-family:var(--fg);font-weight:300;color:var(--accent)}
-.hero-sub{
-  font-size:clamp(.95rem,2.5vw,1.15rem);color:var(--t2);
-  max-width:460px;margin:0 auto 0;line-height:1.65;text-wrap:balance;
-}
+.hero-sub{font-size:clamp(.9rem,2.5vw,1.1rem);color:var(--t2);max-width:440px;margin:0 auto;line-height:1.65;text-wrap:balance}
 
 /* CARD */
-.card-wrap{max-width:740px;margin:48px auto 0;padding:0 20px 64px}
-.card{
-  background:var(--surface);border-radius:var(--rl);
-  box-shadow:var(--xl);overflow:hidden;position:relative;
-}
-.card::before{
-  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(139,30,30,.2),transparent);
-}
+.card-wrap{max-width:740px;margin:40px auto 0;padding:0 16px 56px}
+.card{background:var(--surface);border-radius:var(--rl);box-shadow:var(--xl);overflow:hidden;position:relative}
+.card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(139,30,30,.2),transparent)}
 
-/* Controls */
-.ctrl{padding:20px 20px 0}
-.seg{
-  display:flex;background:var(--s2);border:1px solid var(--b1);
-  border-radius:12px;padding:3px;margin-bottom:16px;
-}
-.seg-btn{
-  flex:1;padding:8px 12px;background:none;border:none;
-  border-radius:9px;font-family:var(--f);font-size:.82rem;
-  font-weight:500;color:var(--t3);cursor:pointer;
-  transition:background .18s,color .18s,box-shadow .18s;text-align:center;
-}
+.ctrl{padding:18px 18px 0}
+.seg{display:flex;background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:3px;margin-bottom:14px}
+.seg-btn{flex:1;padding:8px 10px;background:none;border:none;border-radius:9px;font-family:var(--f);font-size:.82rem;font-weight:500;color:var(--t3);cursor:pointer;transition:background .18s,color .18s,box-shadow .18s;text-align:center}
 .seg-btn.on{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.05);font-weight:600}
 
-.lang-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.lang-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .lang-lbl{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--t3)}
-.lang-sel{
-  appearance:none;background:var(--s2);border:1px solid var(--b1);
-  border-radius:9px;padding:7px 28px 7px 12px;
-  font-family:var(--f);font-size:.84rem;font-weight:500;color:var(--text);
-  cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A8A29E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;
-  box-shadow:var(--sm);transition:border-color .15s;
-}
+.lang-sel{appearance:none;background:var(--s2);border:1px solid var(--b1);border-radius:9px;padding:7px 28px 7px 12px;font-family:var(--f);font-size:.84rem;font-weight:500;color:var(--text);cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A8A29E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;box-shadow:var(--sm);transition:border-color .15s}
 .lang-sel:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,30,30,.12)}
 
-/* Editors */
+/* Editors — mobile: stack vertically */
 .editors{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--b2)}
-@media(max-width:540px){.editors{grid-template-columns:1fr}}
+@media(max-width:560px){.editors{grid-template-columns:1fr}}
 .pane{position:relative;display:flex;flex-direction:column}
 .pane+.pane{border-left:1px solid var(--b2)}
-@media(max-width:540px){.pane+.pane{border-left:none;border-top:1px solid var(--b2)}}
+@media(max-width:560px){.pane+.pane{border-left:none;border-top:1px solid var(--b2)}}
 
-.pane-lbl{
-  position:absolute;top:12px;left:14px;
-  font-size:.63rem;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--t3);pointer-events:none;
-}
+.pane-lbl{position:absolute;top:12px;left:14px;font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);pointer-events:none}
 .pane-lbl.hi{color:var(--gold)}
 
-textarea{
-  width:100%;min-height:170px;padding:34px 14px 14px;
-  background:transparent;border:none;color:var(--text);
-  font-family:var(--f);font-size:.975rem;line-height:1.7;
-  resize:none;outline:none;
-}
+textarea{width:100%;min-height:140px;padding:34px 14px 14px;background:transparent;border:none;color:var(--text);font-family:var(--f);font-size:.975rem;line-height:1.7;resize:none;outline:none}
+@media(max-width:560px){textarea{min-height:110px}}
 textarea::placeholder{color:var(--t3)}
 textarea:focus{background:rgba(139,30,30,.015)}
 
-.pane-foot{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:8px 14px;border-top:1px solid var(--b2);background:var(--s2);
-}
+.pane-foot{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-top:1px solid var(--b2);background:var(--s2)}
 .counter{font-size:.7rem;color:var(--t3);font-variant-numeric:tabular-nums}
-.btn-clr{
-  background:none;border:none;cursor:pointer;
-  font-family:var(--f);font-size:.72rem;font-weight:500;
-  color:var(--t3);padding:3px 8px;border-radius:6px;
-  transition:color .15s,background .15s;
-}
+.btn-clr{background:none;border:none;cursor:pointer;font-family:var(--f);font-size:.72rem;font-weight:500;color:var(--t3);padding:3px 8px;border-radius:6px;transition:color .15s,background .15s}
 .btn-clr:hover{color:var(--accent);background:rgba(139,30,30,.07)}
 
-/* Result */
-.res-seg{
-  flex:1;padding:34px 14px 14px;min-height:84px;
-  font-size:.975rem;line-height:1.7;color:var(--text);
-  white-space:pre-wrap;word-break:break-word;position:relative;
-}
+.res-seg{flex:1;padding:34px 14px 14px;min-height:80px;font-size:.975rem;line-height:1.7;color:var(--text);white-space:pre-wrap;word-break:break-word;position:relative}
 .res-seg.gf{font-family:var(--fg);font-size:1rem}
 .res-seg .ph{color:var(--t3);font-style:italic;font-size:.88rem}
 .sdiv{height:1px;background:var(--b2)}
 
-.cpill{
-  position:absolute;top:8px;right:10px;
-  background:var(--s2);border:1px solid var(--b1);
-  border-radius:20px;font-family:var(--f);font-size:.68rem;font-weight:600;
-  color:var(--t3);padding:3px 10px;cursor:pointer;
-  display:flex;align-items:center;gap:5px;
-  opacity:0;transition:opacity .18s,color .15s,background .15s;
-  box-shadow:var(--sm);
-}
+.cpill{position:absolute;top:8px;right:10px;background:var(--s2);border:1px solid var(--b1);border-radius:20px;font-family:var(--f);font-size:.68rem;font-weight:600;color:var(--t3);padding:3px 10px;cursor:pointer;display:flex;align-items:center;gap:5px;opacity:0;transition:opacity .18s,color .15s,background .15s;box-shadow:var(--sm)}
 .res-seg:hover .cpill{opacity:1}
+@media(max-width:560px){.cpill{opacity:1}}
 .cpill:hover{color:var(--text);background:var(--surface)}
 .cpill.ok{color:#22C55E;opacity:1}
 
-/* Preview note */
-.note{
-  display:none;margin:12px 20px;padding:13px 16px;
-  background:var(--s2);border:1px solid var(--b1);border-radius:12px;
-  font-size:.82rem;color:var(--t2);gap:12px;align-items:flex-start;
-}
+.note{display:none;margin:10px 18px;padding:12px 16px;background:var(--s2);border:1px solid var(--b1);border-radius:12px;font-size:.82rem;color:var(--t2);gap:10px;align-items:flex-start}
 .note.show{display:flex}
-.note-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px}
 .note b{color:var(--text);font-weight:600}
 
-/* Action */
-.act{display:flex;align-items:center;justify-content:center;gap:12px;padding:18px 20px 20px}
-.btn-tr{
-  background:var(--accent);color:#fff;border:none;border-radius:14px;
-  font-family:var(--f);font-size:.95rem;font-weight:600;padding:14px 44px;
-  cursor:pointer;display:flex;align-items:center;gap:9px;
-  box-shadow:0 4px 20px rgba(139,30,30,.4),0 1px 3px rgba(0,0,0,.12);
-  transition:background .15s,transform .1s,box-shadow .15s;letter-spacing:-.01em;
-}
+.act{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 18px 18px;flex-wrap:wrap}
+.btn-tr{background:var(--accent);color:#fff;border:none;border-radius:14px;font-family:var(--f);font-size:.95rem;font-weight:600;padding:14px 44px;cursor:pointer;display:flex;align-items:center;gap:9px;box-shadow:0 4px 20px rgba(139,30,30,.4),0 1px 3px rgba(0,0,0,.12);transition:background .15s,transform .1s,box-shadow .15s;letter-spacing:-.01em}
 .btn-tr:hover{background:var(--accent2);box-shadow:0 6px 28px rgba(139,30,30,.45)}
 .btn-tr:active{transform:scale(.98)}
 .btn-tr:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+@media(max-width:420px){.btn-tr{padding:14px 32px;font-size:.9rem}}
 .hint{font-size:.72rem;color:var(--t3)}
+@media(max-width:420px){.hint{display:none}}
 
-.spin{
-  width:15px;height:15px;border:2px solid rgba(255,255,255,.3);
-  border-top-color:#fff;border-radius:50%;
-  animation:sp .6s linear infinite;display:none;flex-shrink:0;
-}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite;display:none;flex-shrink:0}
 .spinning .spin{display:block}
 @keyframes sp{to{transform:rotate(360deg)}}
 
-/* Pills */
-.pill-row{display:flex;flex-wrap:wrap;gap:7px;padding:14px 20px 18px;border-top:1px solid var(--b2)}
-.fpill{
-  display:flex;align-items:center;gap:6px;
-  background:var(--s2);border:1px solid var(--b1);
-  border-radius:20px;padding:5px 12px;
-  font-size:.72rem;color:var(--t2);font-weight:500;
-}
+.pill-row{display:flex;flex-wrap:wrap;gap:7px;padding:12px 18px 16px;border-top:1px solid var(--b2)}
+.fpill{display:flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--b1);border-radius:20px;padding:5px 12px;font-size:.72rem;color:var(--t2);font-weight:500}
 
-/* Platforms */
-.plat-wrap{max-width:740px;margin:0 auto;padding:0 20px 64px}
+/* PLATFORMS */
+.plat-wrap{max-width:740px;margin:0 auto;padding:0 16px 56px}
 .sec-lbl{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:16px;text-align:center}
 .plat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:560px){.plat-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.plat-grid{grid-template-columns:1fr}}
 
-.pc{
-  background:var(--surface);border:1px solid var(--b1);
-  border-radius:var(--r);padding:22px 18px 20px;
-  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
-  box-shadow:var(--md);position:relative;overflow:hidden;
-  transition:box-shadow .2s,transform .18s;
-}
+.pc{background:var(--surface);border:1px solid var(--b1);border-radius:var(--r);padding:22px 18px 20px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;box-shadow:var(--md);position:relative;overflow:hidden;transition:box-shadow .2s,transform .18s}
 .pc:hover{box-shadow:var(--lg);transform:translateY(-2px)}
 .pc.soon{opacity:.6}
 .pc.soon:hover{transform:none;box-shadow:var(--md)}
+@media(max-width:600px){.pc{flex-direction:row;align-items:center;padding:16px 18px;gap:14px}}
 
-.p-ico{
-  width:44px;height:44px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.12);
-}
+.p-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .p-ios .p-ico{background:linear-gradient(145deg,#1C1C1E,#3A3A3C)}
 .p-and .p-ico{background:linear-gradient(145deg,#2D5016,#4CAF50)}
 .p-tg  .p-ico{background:linear-gradient(145deg,#0A5C8A,#2AABEE)}
 .p-nm{font-size:.9rem;font-weight:600;color:var(--text)}
 .p-ds{font-size:.75rem;color:var(--t2);line-height:1.55}
+@media(max-width:600px){.p-ds{display:none}}
 
-.badge{border-radius:20px;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;margin-top:auto}
+.badge{border-radius:20px;font-size:.65rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;margin-top:auto;flex-shrink:0}
 .b-live{background:rgba(139,30,30,.1);color:var(--accent);border:1px solid rgba(139,30,30,.2)}
 .b-soon{background:var(--s2);color:var(--t3);border:1px solid var(--b1)}
+@media(max-width:600px){.pc .badge{margin-top:0;margin-left:auto}}
 .p-ios::after{content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;background:radial-gradient(circle,rgba(181,134,58,.15),transparent 70%);border-radius:50%}
 
-/* Footer */
+/* iOS Modal */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-end;justify-content:center;padding:0}
+.modal-backdrop.open{display:flex}
+.modal{background:var(--surface);border-radius:24px 24px 0 0;padding:28px 24px 40px;width:100%;max-width:480px;box-shadow:0 -8px 40px rgba(0,0,0,.2);animation:slideUp .3s ease}
+@media(min-width:480px){.modal-backdrop{align-items:center;padding:20px}.modal{border-radius:24px;max-width:420px}}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal h3{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:18px;text-align:center}
+.modal-step{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--b2)}
+.modal-step:last-child{border-bottom:none}
+.modal-step-ico{width:40px;height:40px;background:var(--s2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.modal-step-txt{font-size:.85rem;color:var(--t2);line-height:1.5}
+.modal-step-txt b{color:var(--text)}
+.modal-close{width:100%;margin-top:20px;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-family:var(--f);font-size:.95rem;font-weight:600;cursor:pointer}
+
 footer{margin-top:auto;padding:28px 24px;text-align:center;border-top:1px solid var(--b1);font-size:.75rem;color:var(--t3)}
 footer .gm{font-family:var(--fg);font-size:.85rem;display:block;margin-bottom:8px;opacity:.4}
 footer a{color:var(--t2);text-decoration:none}
 footer a:hover{color:var(--accent)}
 
-/* Toast */
-.toast{
-  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
-  background:var(--text);color:var(--bg);
-  padding:11px 22px;border-radius:12px;font-size:.83rem;font-weight:500;
-  opacity:0;pointer-events:none;transition:opacity .22s;z-index:999;
-  box-shadow:var(--lg);white-space:nowrap;
-}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:11px 22px;border-radius:12px;font-size:.83rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .22s;z-index:999;box-shadow:var(--lg);white-space:nowrap}
 .toast.show{opacity:1}
 </style>
+</head>
+<body>
 
-<!-- NAV -->
 <nav>
   <a class="logo" href="#">
     <span class="logo-k">კ</span><span class="logo-artu">artu</span><span class="logo-lat">Lat</span>
   </a>
   <div class="nav-r">
-    <!-- UI language -->
     <div class="ui-lang-wrap">
       <button class="ui-lang-btn" id="uilang-btn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         <span id="uilang-cur">RU</span>
       </button>
       <div class="ui-lang-drop" id="uilang-drop">
-        <div class="ui-lang-opt" data-ul="ru"><span class="flag">🇷🇺</span>Русский</div>
-        <div class="ui-lang-opt" data-ul="en"><span class="flag">🇬🇧</span>English</div>
-        <div class="ui-lang-opt" data-ul="tr"><span class="flag">🇹🇷</span>Türkçe</div>
-        <div class="ui-lang-opt" data-ul="uk"><span class="flag">🇺🇦</span>Українська</div>
-        <div class="ui-lang-opt" data-ul="kk"><span class="flag">🇰🇿</span>Қазақша</div>
-        <div class="ui-lang-opt" data-ul="hy"><span class="flag">🇦🇲</span>Հայերեն</div>
-        <div class="ui-lang-opt" data-ul="az"><span class="flag">🇦🇿</span>Azərbaycanca</div>
-        <div class="ui-lang-opt" data-ul="pt"><span class="flag">🇵🇹</span>Português</div>
-        <div class="ui-lang-opt" data-ul="de"><span class="flag">🇩🇪</span>Deutsch</div>
+        <div class="ui-lang-opt" data-ul="ru"><span>🇷🇺</span>Русский</div>
+        <div class="ui-lang-opt" data-ul="en"><span>🇬🇧</span>English</div>
+        <div class="ui-lang-opt" data-ul="tr"><span>🇹🇷</span>Türkçe</div>
+        <div class="ui-lang-opt" data-ul="uk"><span>🇺🇦</span>Українська</div>
+        <div class="ui-lang-opt" data-ul="kk"><span>🇰🇿</span>Қазақша</div>
+        <div class="ui-lang-opt" data-ul="hy"><span>🇦🇲</span>Հայերեն</div>
+        <div class="ui-lang-opt" data-ul="az"><span>🇦🇿</span>Azərbaycanca</div>
+        <div class="ui-lang-opt" data-ul="pt"><span>🇵🇹</span>Português</div>
+        <div class="ui-lang-opt" data-ul="de"><span>🇩🇪</span>Deutsch</div>
       </div>
     </div>
     <button class="btn-icon" id="theme-btn" aria-label="Theme">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg id="theme-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
     </button>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
   <h1 data-i18n="heroTitle">Грузинский<br>без <em>границ</em></h1>
   <p class="hero-sub" data-i18n="heroSub">Получили SMS латиницей? KartuLat мгновенно переводит грузинский текст, написанный латинскими буквами, на любой язык.</p>
 </section>
 
-<!-- CARD -->
 <div class="card-wrap">
   <div class="card">
     <div class="ctrl">
@@ -412,7 +274,7 @@ footer a:hover{color:var(--accent)}
         </div>
         <div class="sdiv"></div>
         <div class="res-seg" id="r-tr" style="flex:1">
-          <span class="pane-lbl" id="tr-lbl" data-i18n="lblTrans">ПЕРЕВОД (RU)</span>
+          <span class="pane-lbl" id="tr-lbl" data-i18n="lblTrans">ПЕРЕВОД</span>
           <button class="cpill" id="cp-tr" data-i18n="copy">⎘ копировать</button>
           <span class="ph" id="tr-ph" data-i18n="transEmpty">Здесь появится перевод…</span>
         </div>
@@ -420,8 +282,8 @@ footer a:hover{color:var(--accent)}
     </div>
 
     <div class="note" id="note">
-      <span class="note-ico">ℹ️</span>
-      <span class="note-body" data-i18n="noteText"><b>Транслитерация выполнена.</b> Перевод недоступен в превью — на опубликованном сайте работает полностью. Скопируйте грузинский текст выше.</span>
+      <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">ℹ️</span>
+      <span class="note-body" data-i18n="noteText"><b>Транслитерация выполнена.</b> Перевод временно недоступен. Попробуйте позже или скопируйте грузинский текст выше.</span>
     </div>
 
     <div class="act">
@@ -441,32 +303,37 @@ footer a:hover{color:var(--accent)}
   </div>
 </div>
 
-<!-- PLATFORMS -->
 <div class="plat-wrap">
   <p class="sec-lbl" data-i18n="secAvail">Доступно везде</p>
   <div class="plat-grid">
-    <div class="pc p-ios">
+    <div class="pc p-ios" id="ios-card" style="cursor:pointer">
       <div class="p-ico">
-        <svg width="23" height="27" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
+        <svg width="23" height="27" viewBox="0 0 24 24" fill="white"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
       </div>
-      <div class="p-nm" data-i18n="iosName">iPhone / iPad</div>
-      <div class="p-ds" data-i18n="iosDesc">Добавьте на главный экран через Safari — работает как нативное приложение.</div>
+      <div>
+        <div class="p-nm" data-i18n="iosName">iPhone / iPad</div>
+        <div class="p-ds" data-i18n="iosDesc">Добавьте на главный экран через Safari — работает как нативное приложение.</div>
+      </div>
       <span class="badge b-live" data-i18n="badgeLive">Доступно сейчас</span>
     </div>
-    <div class="pc p-and soon">
+    <div class="pc p-and" id="and-card" style="cursor:pointer">
       <div class="p-ico">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48A5.84 5.84 0 0 0 12 1.5c-.96 0-1.86.23-2.66.63L7.88.65c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31A5.983 5.983 0 0 0 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48A5.84 5.84 0 0 0 12 1.5c-.96 0-1.86.23-2.66.63L7.88.65c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31A5.983 5.983 0 0 0 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
       </div>
-      <div class="p-nm" data-i18n="andName">Android</div>
-      <div class="p-ds" data-i18n="andDesc">Нативное приложение с офлайн-режимом.</div>
-      <span class="badge b-soon" data-i18n="badgeSoon">Скоро</span>
+      <div>
+        <div class="p-nm" data-i18n="andName">Android</div>
+        <div class="p-ds" data-i18n="andDesc">Нативное приложение с офлайн-режимом.</div>
+      </div>
+      <span class="badge b-live" data-i18n="badgeLive">Доступно сейчас</span>
     </div>
     <div class="pc p-tg soon">
       <div class="p-ico">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
       </div>
-      <div class="p-nm" data-i18n="tgName">Telegram Бот</div>
-      <div class="p-ds" data-i18n="tgDesc">Перевод прямо в чате — отправь текст, получи ответ мгновенно.</div>
+      <div>
+        <div class="p-nm" data-i18n="tgName">Telegram Бот</div>
+        <div class="p-ds" data-i18n="tgDesc">Перевод прямо в чате — отправь текст, получи ответ мгновенно.</div>
+      </div>
       <span class="badge b-soon" data-i18n="badgeSoon">Скоро</span>
     </div>
   </div>
@@ -477,177 +344,62 @@ footer a:hover{color:var(--accent)}
   KartuLat &copy; 2024 &nbsp;·&nbsp; <a href="#" data-i18n="privacy">Политика конфиденциальности</a>
 </footer>
 
+<!-- iOS PWA Modal -->
+<div class="modal-backdrop" id="ios-modal">
+  <div class="modal">
+    <h3 id="modal-title">Добавить на главный экран</h3>
+    <div class="modal-step">
+      <div class="modal-step-ico">1️⃣</div>
+      <div class="modal-step-txt"><b>Откройте Safari</b> на iPhone или iPad (Chrome не поддерживает PWA)</div>
+    </div>
+    <div class="modal-step">
+      <div class="modal-step-ico">📤</div>
+      <div class="modal-step-txt">Нажмите кнопку <b>«Поделиться»</b> (квадрат со стрелкой вверх) внизу экрана</div>
+    </div>
+    <div class="modal-step">
+      <div class="modal-step-ico">➕</div>
+      <div class="modal-step-txt">Выберите <b>«На экран "Домой"»</b> и нажмите «Добавить»</div>
+    </div>
+    <button class="modal-close" id="modal-close">Понятно</button>
+  </div>
+</div>
+
+<!-- Android Modal -->
+<div class="modal-backdrop" id="and-modal">
+  <div class="modal">
+    <h3>Android — установить приложение</h3>
+    <div class="modal-step">
+      <div class="modal-step-ico">🔗</div>
+      <div class="modal-step-txt">Скачайте приложение <b>KartuLat</b> из Google Play — офлайн-режим, нет рекламы внутри интерфейса</div>
+    </div>
+    <div class="modal-step">
+      <div class="modal-step-ico">📱</div>
+      <div class="modal-step-txt">Или откройте этот сайт в Chrome и нажмите <b>«Добавить на главный экран»</b></div>
+    </div>
+    <button class="modal-close" id="and-modal-close" onclick="document.getElementById('and-modal').classList.remove('open')">Понятно</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ── i18n ──
+// ── i18n data ──
 const T = {
-  ru:{
-    heroTitle:'Грузинский<br>без <em>границ</em>',
-    heroSub:'Получили SMS латиницей? KartuLat мгновенно переводит грузинский текст, написанный латинскими буквами, на любой язык.',
-    tab1:'Латиница → Перевод',tab2:'Текст → Груз. латиница',
-    langLbl:'Язык перевода',translateBtn:'Перевести',hintKey:'Ctrl + Enter',
-    lblLat:'ЛАТИНИЦА',lblGeo:'ГРУЗИНСКИЙ',lblTrans:'ПЕРЕВОД',
-    geoEmpty:'Здесь появится грузинский текст…',transEmpty:'Здесь появится перевод…',
-    noteText:'<b>Транслитерация выполнена.</b> Перевод недоступен в превью — на опубликованном сайте работает полностью. Скопируйте грузинский текст выше.',
-    clear:'Очистить',symb:'симв.',copy:'⎘ копировать',copied:'✓ готово',
-    pill1:'SMS-латиница грузин',pill2:'Работает офлайн',pill3:'11 языков',pill4:'PWA — на главный экран',
-    secAvail:'Доступно везде',iosName:'iPhone / iPad',
-    iosDesc:'Добавьте на главный экран через Safari — работает как нативное приложение.',
-    andName:'Android',andDesc:'Нативное приложение с офлайн-режимом.',
-    tgName:'Telegram Бот',tgDesc:'Перевод прямо в чате — отправь текст, получи ответ мгновенно.',
-    badgeLive:'Доступно сейчас',badgeSoon:'Скоро',privacy:'Политика конфиденциальности',
-    yourText:'ВАШ ТЕКСТ',noInput:'Введите текст',errTry:'Ошибка. Попробуйте ещё раз.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nВставьте текст из SMS…',ph2:'Введите текст для перевода…',
-  },
-  en:{
-    heroTitle:'Georgian<br>without <em>limits</em>',
-    heroSub:'Got an SMS in Georgian Latin script? KartuLat instantly translates it into any language.',
-    tab1:'Latin → Translate',tab2:'Text → Georgian Latin',
-    langLbl:'Target language',translateBtn:'Translate',hintKey:'Ctrl + Enter',
-    lblLat:'LATIN',lblGeo:'GEORGIAN',lblTrans:'TRANSLATION',
-    geoEmpty:'Georgian text will appear here…',transEmpty:'Translation will appear here…',
-    noteText:'<b>Transliteration complete.</b> Translation unavailable in preview — works fully on the published site. Copy the Georgian text above.',
-    clear:'Clear',symb:'chars',copy:'⎘ copy',copied:'✓ done',
-    pill1:'Georgian SMS latin',pill2:'Works offline',pill3:'11 languages',pill4:'PWA — add to home screen',
-    secAvail:'Available everywhere',iosName:'iPhone / iPad',
-    iosDesc:'Add to your home screen via Safari — works like a native app.',
-    andName:'Android',andDesc:'Native app with offline mode.',
-    tgName:'Telegram Bot',tgDesc:'Translate directly in chat — send text, get instant reply.',
-    badgeLive:'Available now',badgeSoon:'Coming soon',privacy:'Privacy Policy',
-    yourText:'YOUR TEXT',noInput:'Enter text',errTry:'Error. Please try again.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nPaste text from an SMS…',ph2:'Enter text to translate…',
-  },
-  tr:{
-    heroTitle:'Gürcüce<br><em>sınırsız</em>',
-    heroSub:'Latin harflerle yazılmış Gürcüce bir SMS aldınız mı? KartuLat anında çevirir.',
-    tab1:'Latin → Çeviri',tab2:'Metin → Gürcü Latini',
-    langLbl:'Çeviri dili',translateBtn:'Çevir',hintKey:'Ctrl + Enter',
-    lblLat:'LATİN',lblGeo:'GÜRCÜCE',lblTrans:'ÇEVİRİ',
-    geoEmpty:'Gürcüce metin burada görünecek…',transEmpty:'Çeviri burada görünecek…',
-    noteText:'<b>Transliterasyon tamamlandı.</b> Çeviri önizlemede kullanılamıyor — yayınlanan sitede tam çalışır.',
-    clear:'Temizle',symb:'karakter',copy:'⎘ kopyala',copied:'✓ tamam',
-    pill1:'Gürcü SMS Latini',pill2:'Çevrimdışı çalışır',pill3:'11 dil',pill4:'PWA — ana ekrana ekle',
-    secAvail:'Her yerde mevcut',iosName:'iPhone / iPad',
-    iosDesc:"Safari üzerinden ana ekrana ekleyin — yerel uygulama gibi çalışır.",
-    andName:'Android',andDesc:'Çevrimdışı modlu yerel uygulama.',
-    tgName:'Telegram Bot',tgDesc:"Sohbet içinde çeviri — metin gönder, anında cevap al.",
-    badgeLive:'Şimdi mevcut',badgeSoon:'Yakında',privacy:'Gizlilik Politikası',
-    yourText:'METNİNİZ',noInput:'Metin girin',errTry:'Hata. Lütfen tekrar deneyin.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nSMS metnini yapıştırın…',ph2:'Çevrilecek metni girin…',
-  },
-  uk:{
-    heroTitle:'Грузинська<br>без <em>меж</em>',
-    heroSub:'Отримали SMS латиницею? KartuLat миттєво перекладає грузинський текст, написаний латинськими літерами.',
-    tab1:'Латиниця → Переклад',tab2:'Текст → Груз. латиниця',
-    langLbl:'Мова перекладу',translateBtn:'Перекласти',hintKey:'Ctrl + Enter',
-    lblLat:'ЛАТИНИЦЯ',lblGeo:'ГРУЗИНСЬКА',lblTrans:'ПЕРЕКЛАД',
-    geoEmpty:'Тут з\'явиться грузинський текст…',transEmpty:'Тут з\'явиться переклад…',
-    noteText:'<b>Транслітерацію виконано.</b> Переклад недоступний у превʼю — на сайті працює повністю.',
-    clear:'Очистити',symb:'симв.',copy:'⎘ копіювати',copied:'✓ готово',
-    pill1:'SMS-латиниця грузинів',pill2:'Працює офлайн',pill3:'11 мов',pill4:'PWA — на головний екран',
-    secAvail:'Доступно скрізь',iosName:'iPhone / iPad',
-    iosDesc:'Додайте на головний екран через Safari — працює як нативний застосунок.',
-    andName:'Android',andDesc:'Нативний застосунок з офлайн-режимом.',
-    tgName:'Telegram Бот',tgDesc:'Переклад прямо в чаті — надішли текст, отримай відповідь.',
-    badgeLive:'Доступно зараз',badgeSoon:'Незабаром',privacy:'Політика конфіденційності',
-    yourText:'ВАШ ТЕКСТ',noInput:'Введіть текст',errTry:'Помилка. Спробуйте ще раз.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nВставте текст із SMS…',ph2:'Введіть текст для перекладу…',
-  },
-  kk:{
-    heroTitle:'Грузин тілі<br><em>шексіз</em>',
-    heroSub:'Латын әріптерімен жазылған SMS алдыңыз ба? KartuLat бірден аударады.',
-    tab1:'Латын → Аударма',tab2:'Мәтін → Груз. латыны',
-    langLbl:'Аударма тілі',translateBtn:'Аудару',hintKey:'Ctrl + Enter',
-    lblLat:'ЛАТЫН',lblGeo:'ГРУЗИНША',lblTrans:'АУДАРМА',
-    geoEmpty:'Грузин мәтіні осында пайда болады…',transEmpty:'Аударма осында пайда болады…',
-    noteText:'<b>Транслитерация орындалды.</b> Аударма алдын ала қарауда қолжетімді емес.',
-    clear:'Тазалау',symb:'тамба',copy:'⎘ көшіру',copied:'✓ дайын',
-    pill1:'SMS латын грузинше',pill2:'Офлайн жұмыс жасайды',pill3:'11 тіл',pill4:'PWA — бастапқы экранға',
-    secAvail:'Барлық жерде қолжетімді',iosName:'iPhone / iPad',
-    iosDesc:'Safari арқылы бастапқы экранға қосыңыз.',
-    andName:'Android',andDesc:'Офлайн режимі бар нативті қолданба.',
-    tgName:'Telegram Bot',tgDesc:'Чатта тікелей аудару.',
-    badgeLive:'Қазір қолжетімді',badgeSoon:'Жақында',privacy:'Құпиялылық саясаты',
-    yourText:'МӘТІНІҢІЗ',noInput:'Мәтін енгізіңіз',errTry:'Қате. Қайталап көріңіз.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nSMS мәтінін қойыңыз…',ph2:'Аударылатын мәтінді енгізіңіз…',
-  },
-  hy:{
-    heroTitle:'Վրացերեն<br><em>առանց</em> սահմանների',
-    heroSub:'SMS ստացե՞լ եք լատինատառ վրացերենով։ KartuLat անմիջապես թարգմանում է։',
-    tab1:'Լատինատառ → Թարգմանություն',tab2:'Տեքստ → Վրաց. լատին',
-    langLbl:'Թարգմանության լեզու',translateBtn:'Թարգմանել',hintKey:'Ctrl + Enter',
-    lblLat:'ԼԱՏԻՆԱՏԱՌ',lblGeo:'ՎՐԱՑԵՐԵՆ',lblTrans:'ԹԱՐԳՄԱՆՈՒԹՅՈՒՆ',
-    geoEmpty:'Վրացերեն տեքստը կհայտնվի այստեղ…',transEmpty:'Թարգմանությունը կհայտնվի այստեղ…',
-    noteText:'<b>Տրանսլիտերացիան կատարված է։</b> Թարգմանությունն անհասանելի է նախադիտման ռեժիմում։',
-    clear:'Մաքրել',symb:'նիշ',copy:'⎘ պատճենել',copied:'✓ պատրաստ',
-    pill1:'SMS լատինատառ վրացերեն',pill2:'Աշխատում է օֆֆլայն',pill3:'11 լեզու',pill4:'PWA — գլխավոր էկրան',
-    secAvail:'Հասանելի ամենուր',iosName:'iPhone / iPad',
-    iosDesc:'Ավելացրեք Safari-ի միջոցով գլխավոր էկранին։',
-    andName:'Android',andDesc:'Բնիկ հավելված offline ռեժիմով։',
-    tgName:'Telegram Bot',tgDesc:'Թարգմանություն անմիջապես չատում։',
-    badgeLive:'Հասանելի հիմա',badgeSoon:'Շուտով',privacy:'Գաղտնիության քաղաքականություն',
-    yourText:'ՁԵՐ ՏԵՔՍՏԸ',noInput:'Մուտքագրեք տեքստ',errTry:'Սխալ։ Փորձեք կրկին։',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nՏեղադրեք SMS-ի տեքստը…',ph2:'Մուտքագրեք թարգմանվող տեքստը…',
-  },
-  az:{
-    heroTitle:'Gürcücə<br><em>sərhədsiz</em>',
-    heroSub:'Latın hərflərlə yazılmış gürcücə SMS aldınız? KartuLat dərhal tərcümə edir.',
-    tab1:'Latın → Tərcümə',tab2:'Mətn → Gürcü Latini',
-    langLbl:'Tərcümə dili',translateBtn:'Tərcümə et',hintKey:'Ctrl + Enter',
-    lblLat:'LATİN',lblGeo:'GÜRCÜCƏ',lblTrans:'TƏRCÜMƏ',
-    geoEmpty:'Gürcücə mətn burada görünəcək…',transEmpty:'Tərcümə burada görünəcək…',
-    noteText:'<b>Transliterasiya tamamlandı.</b> Önizləmədə tərcümə mümkün deyil — saytda tam işləyir.',
-    clear:'Təmizlə',symb:'simvol',copy:'⎘ kopyala',copied:'✓ hazır',
-    pill1:'Gürcü SMS latini',pill2:'Oflayn işləyir',pill3:'11 dil',pill4:'PWA — ana ekrana əlavə et',
-    secAvail:'Hər yerdə mövcuddur',iosName:'iPhone / iPad',
-    iosDesc:'Safari vasitəsilə ana ekrana əlavə edin.',
-    andName:'Android',andDesc:'Oflayn rejimli yerli tətbiq.',
-    tgName:'Telegram Bot',tgDesc:'Birbaşa çatda tərcümə.',
-    badgeLive:'İndi mövcuddur',badgeSoon:'Tezliklə',privacy:'Məxfilik Siyasəti',
-    yourText:'MƏTNİNİZ',noInput:'Mətn daxil edin',errTry:'Xəta. Yenidən cəhd edin.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nSMS mətnini yapışdırın…',ph2:'Tərcümə ediləcək mətni daxil edin…',
-  },
-  pt:{
-    heroTitle:'Georgiano<br>sem <em>limites</em>',
-    heroSub:'Recebeu um SMS em georgiano com letras latinas? KartuLat traduz instantaneamente.',
-    tab1:'Latino → Tradução',tab2:'Texto → Georgiano Latino',
-    langLbl:'Idioma de tradução',translateBtn:'Traduzir',hintKey:'Ctrl + Enter',
-    lblLat:'LATINO',lblGeo:'GEORGIANO',lblTrans:'TRADUÇÃO',
-    geoEmpty:'O texto georgiano aparecerá aqui…',transEmpty:'A tradução aparecerá aqui…',
-    noteText:'<b>Transliteração concluída.</b> Tradução indisponível na pré-visualização — funciona no site publicado.',
-    clear:'Limpar',symb:'caracteres',copy:'⎘ copiar',copied:'✓ pronto',
-    pill1:'SMS georgiano latino',pill2:'Funciona offline',pill3:'11 idiomas',pill4:'PWA — adicionar à tela inicial',
-    secAvail:'Disponível em todo lugar',iosName:'iPhone / iPad',
-    iosDesc:'Adicione à tela inicial via Safari — funciona como um aplicativo nativo.',
-    andName:'Android',andDesc:'Aplicativo nativo com modo offline.',
-    tgName:'Bot do Telegram',tgDesc:'Tradução diretamente no chat.',
-    badgeLive:'Disponível agora',badgeSoon:'Em breve',privacy:'Política de Privacidade',
-    yourText:'SEU TEXTO',noInput:'Digite o texto',errTry:'Erro. Tente novamente.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nCole o texto do SMS…',ph2:'Digite o texto para traduzir…',
-  },
-  de:{
-    heroTitle:'Georgisch<br>ohne <em>Grenzen</em>',
-    heroSub:'Eine SMS in georgianischen lateinischen Buchstaben erhalten? KartuLat übersetzt sie sofort.',
-    tab1:'Latein → Übersetzung',tab2:'Text → Georg. Latein',
-    langLbl:'Zielsprache',translateBtn:'Übersetzen',hintKey:'Ctrl + Enter',
-    lblLat:'LATEINISCH',lblGeo:'GEORGISCH',lblTrans:'ÜBERSETZUNG',
-    geoEmpty:'Georgischer Text erscheint hier…',transEmpty:'Übersetzung erscheint hier…',
-    noteText:'<b>Transliteration abgeschlossen.</b> Übersetzung in der Vorschau nicht verfügbar — funktioniert auf der veröffentlichten Website.',
-    clear:'Löschen',symb:'Zeichen',copy:'⎘ kopieren',copied:'✓ fertig',
-    pill1:'Georgisches SMS-Latein',pill2:'Offline nutzbar',pill3:'11 Sprachen',pill4:'PWA — zum Startbildschirm',
-    secAvail:'Überall verfügbar',iosName:'iPhone / iPad',
-    iosDesc:'Über Safari zum Startbildschirm hinzufügen.',
-    andName:'Android',andDesc:'Native App mit Offline-Modus.',
-    tgName:'Telegram-Bot',tgDesc:'Übersetzung direkt im Chat.',
-    badgeLive:'Jetzt verfügbar',badgeSoon:'Demnächst',privacy:'Datenschutzrichtlinie',
-    yourText:'IHR TEXT',noInput:'Text eingeben',errTry:'Fehler. Bitte erneut versuchen.',
-    ph1:'gamarjoba! ra aris sheni saxeli?\n\nSMS-Text einfügen…',ph2:'Text zum Übersetzen eingeben…',
-  },
+  ru:{heroTitle:'Грузинский<br>без <em>границ</em>',heroSub:'Получили SMS латиницей? KartuLat мгновенно переводит грузинский текст, написанный латинскими буквами, на любой язык.',tab1:'Латиница → Перевод',tab2:'Текст → Груз. латиница',langLbl:'Язык перевода',translateBtn:'Перевести',hintKey:'Ctrl + Enter',lblLat:'ЛАТИНИЦА',lblGeo:'ГРУЗИНСКИЙ',lblTrans:'ПЕРЕВОД',geoEmpty:'Здесь появится грузинский текст…',transEmpty:'Здесь появится перевод…',noteText:'<b>Транслитерация выполнена.</b> Перевод временно недоступен. Скопируйте грузинский текст выше.',clear:'Очистить',symb:'симв.',copy:'⎘ копировать',copied:'✓ готово',pill1:'SMS-латиница грузин',pill2:'Работает офлайн',pill3:'11 языков',pill4:'PWA — на главный экран',secAvail:'Доступно везде',iosName:'iPhone / iPad',iosDesc:'Добавьте на главный экран через Safari — работает как нативное приложение.',andName:'Android',andDesc:'Нативное приложение с офлайн-режимом.',tgName:'Telegram Бот',tgDesc:'Перевод прямо в чате — отправь текст, получи ответ мгновенно.',badgeLive:'Доступно сейчас',badgeSoon:'Скоро',privacy:'Политика конфиденциальности',yourText:'ВАШ ТЕКСТ',noInput:'Введите текст',errTry:'Ошибка. Попробуйте ещё раз.',ph1:'gamarjoba! ra aris sheni saxeli?',ph2:'Введите текст для перевода…',iosModal:'Добавить на главный экран'},
+  en:{heroTitle:'Georgian<br>without <em>limits</em>',heroSub:'Got an SMS in Georgian Latin script? KartuLat instantly translates it into any language.',tab1:'Latin → Translate',tab2:'Text → Georgian Latin',langLbl:'Target language',translateBtn:'Translate',hintKey:'Ctrl + Enter',lblLat:'LATIN',lblGeo:'GEORGIAN',lblTrans:'TRANSLATION',geoEmpty:'Georgian text will appear here…',transEmpty:'Translation will appear here…',noteText:'<b>Transliteration complete.</b> Translation temporarily unavailable. Copy the Georgian text above.',clear:'Clear',symb:'chars',copy:'⎘ copy',copied:'✓ done',pill1:'Georgian SMS latin',pill2:'Works offline',pill3:'11 languages',pill4:'PWA — add to home screen',secAvail:'Available everywhere',iosName:'iPhone / iPad',iosDesc:'Add to your home screen via Safari — works like a native app.',andName:'Android',andDesc:'Native app with offline mode.',tgName:'Telegram Bot',tgDesc:'Translate directly in chat — send text, get instant reply.',badgeLive:'Available now',badgeSoon:'Coming soon',privacy:'Privacy Policy',yourText:'YOUR TEXT',noInput:'Enter text',errTry:'Error. Please try again.',ph1:'gamarjoba! ra aris sheni saxeli?',ph2:'Enter text to translate…',iosModal:'Add to Home Screen'},
+  tr:{heroTitle:'Gürcüce<br><em>sınırsız</em>',heroSub:'Latin harflerle yazılmış Gürcüce bir SMS aldınız mı? KartuLat anında çevirir.',tab1:'Latin → Çeviri',tab2:'Metin → Gürcü Latini',langLbl:'Çeviri dili',translateBtn:'Çevir',hintKey:'Ctrl + Enter',lblLat:'LATİN',lblGeo:'GÜRCÜCE',lblTrans:'ÇEVİRİ',geoEmpty:'Gürcüce metin burada görünecek…',transEmpty:'Çeviri burada görünecek…',noteText:'<b>Transliterasyon tamamlandı.</b>',clear:'Temizle',symb:'karakter',copy:'⎘ kopyala',copied:'✓ tamam',pill1:'Gürcü SMS Latini',pill2:'Çevrimdışı çalışır',pill3:'11 dil',pill4:'PWA — ana ekrana ekle',secAvail:'Her yerde mevcut',iosName:'iPhone / iPad',iosDesc:"Safari'den ana ekrana ekleyin.",andName:'Android',andDesc:'Çevrimdışı modlu uygulama.',tgName:'Telegram Bot',tgDesc:'Sohbet içinde çeviri.',badgeLive:'Şimdi mevcut',badgeSoon:'Yakında',privacy:'Gizlilik',yourText:'METNİNİZ',noInput:'Metin girin',errTry:'Hata. Tekrar deneyin.',ph1:'gamarjoba!',ph2:'Çevrilecek metni girin…',iosModal:'Ana Ekrana Ekle'},
+  uk:{heroTitle:'Грузинська<br>без <em>меж</em>',heroSub:'Отримали SMS латиницею? KartuLat миттєво перекладає.',tab1:'Латиниця → Переклад',tab2:'Текст → Груз. латиниця',langLbl:'Мова перекладу',translateBtn:'Перекласти',hintKey:'Ctrl + Enter',lblLat:'ЛАТИНИЦЯ',lblGeo:'ГРУЗИНСЬКА',lblTrans:'ПЕРЕКЛАД',geoEmpty:'Тут з\'явиться грузинський текст…',transEmpty:'Тут з\'явиться переклад…',noteText:'<b>Транслітерацію виконано.</b>',clear:'Очистити',symb:'симв.',copy:'⎘ копіювати',copied:'✓ готово',pill1:'SMS латиниця',pill2:'Офлайн',pill3:'11 мов',pill4:'PWA',secAvail:'Доступно скрізь',iosName:'iPhone / iPad',iosDesc:'Safari → Головний екран.',andName:'Android',andDesc:'Офлайн застосунок.',tgName:'Telegram Бот',tgDesc:'Переклад у чаті.',badgeLive:'Доступно',badgeSoon:'Незабаром',privacy:'Конфіденційність',yourText:'ВАШ ТЕКСТ',noInput:'Введіть текст',errTry:'Помилка.',ph1:'gamarjoba!',ph2:'Введіть текст…',iosModal:'Додати на екран'},
+  de:{heroTitle:'Georgisch<br>ohne <em>Grenzen</em>',heroSub:'SMS in georgianischen Buchstaben? KartuLat übersetzt sofort.',tab1:'Latein → Übersetzung',tab2:'Text → Georg. Latein',langLbl:'Zielsprache',translateBtn:'Übersetzen',hintKey:'Ctrl + Enter',lblLat:'LATEINISCH',lblGeo:'GEORGISCH',lblTrans:'ÜBERSETZUNG',geoEmpty:'Georgischer Text erscheint hier…',transEmpty:'Übersetzung erscheint hier…',noteText:'<b>Transliteration abgeschlossen.</b>',clear:'Löschen',symb:'Zeichen',copy:'⎘ kopieren',copied:'✓ fertig',pill1:'Georgisches SMS-Latein',pill2:'Offline',pill3:'11 Sprachen',pill4:'PWA',secAvail:'Überall verfügbar',iosName:'iPhone / iPad',iosDesc:'Über Safari zum Startbildschirm.',andName:'Android',andDesc:'Native App mit Offline.',tgName:'Telegram-Bot',tgDesc:'Übersetzung im Chat.',badgeLive:'Jetzt verfügbar',badgeSoon:'Demnächst',privacy:'Datenschutz',yourText:'IHR TEXT',noInput:'Text eingeben',errTry:'Fehler.',ph1:'gamarjoba!',ph2:'Text eingeben…',iosModal:'Zum Startbildschirm'},
 };
+// fill remaining langs (kk, hy, az, pt) with ru fallback
+['kk','hy','az','pt'].forEach(l => T[l] = {...T.ru});
 
-// ── apply i18n ──
+// ── State — declare BEFORE applyLang ──
+let mode = 'lat2ru';
 let uiLang = localStorage.getItem('kl-ui') || 'ru';
+let th = localStorage.getItem('kl-th') || 'system';
+
+// ── i18n apply ──
 function applyLang(l) {
   uiLang = l;
   localStorage.setItem('kl-ui', l);
@@ -658,20 +410,37 @@ function applyLang(l) {
     if (el.tagName === 'TEXTAREA') el.placeholder = d[k];
     else el.innerHTML = d[k];
   });
-  // Hero title (has HTML)
   const ht = document.querySelector('.hero h1');
   if (ht) ht.innerHTML = d.heroTitle;
-  // Placeholder
   const inp = document.getElementById('inp');
   if (inp) inp.placeholder = mode === 'lat2ru' ? d.ph1 : d.ph2;
-  // tr-lbl lang code
   const trl = document.getElementById('tr-lbl');
-  if (trl) trl.textContent = d.lblTrans + ' (' + (document.getElementById('lang').value || 'RU').toUpperCase() + ')';
-  // update cur label
+  const langEl = document.getElementById('lang');
+  if (trl && langEl) trl.textContent = d.lblTrans + ' (' + langEl.value.toUpperCase() + ')';
   document.getElementById('uilang-cur').textContent = l.toUpperCase();
-  // mark selected
   document.querySelectorAll('.ui-lang-opt').forEach(o => o.classList.toggle('sel', o.dataset.ul === l));
+  const mt = document.getElementById('modal-title');
+  if (mt && d.iosModal) mt.textContent = d.iosModal;
 }
+
+// ── Theme ──
+function applyTh(t) {
+  const r = document.documentElement;
+  const ico = document.getElementById('theme-ico');
+  if (t === 'dark') {
+    r.setAttribute('data-theme','dark');
+    if (ico) ico.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  } else if (t === 'light') {
+    r.setAttribute('data-theme','light');
+    if (ico) ico.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+  } else {
+    r.removeAttribute('data-theme');
+    if (ico) ico.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+  }
+}
+
+// Init
+applyTh(th);
 applyLang(uiLang);
 
 // ── UI lang dropdown ──
@@ -683,6 +452,13 @@ document.querySelectorAll('.ui-lang-opt').forEach(o => {
   o.addEventListener('click', () => { applyLang(o.dataset.ul); ulDrop.classList.remove('open'); });
 });
 
+// ── Theme btn ──
+document.getElementById('theme-btn').addEventListener('click', () => {
+  th = th === 'light' ? 'dark' : th === 'dark' ? 'system' : 'light';
+  localStorage.setItem('kl-th', th);
+  applyTh(th);
+});
+
 // ── Transliteration ──
 const L2G=[['sh','შ'],['ch','ჩ'],['zh','ჟ'],['gh','ღ'],['kh','ხ'],['ph','ფ'],['dz','ძ'],['ts','ც'],['th','თ'],['dj','ჯ'],['a','ა'],['b','ბ'],['g','გ'],['d','დ'],['e','ე'],['v','ვ'],['z','ზ'],['t','ტ'],['i','ი'],['k','კ'],['l','ლ'],['m','მ'],['n','ნ'],['o','ო'],['p','პ'],['r','რ'],['s','ს'],['u','უ'],['f','ფ'],['q','ყ'],['w','ვ'],['x','ხ'],['y','ი'],['j','ჯ'],['h','ჰ'],['c','ც']];
 const G2L={'ა':'a','ბ':'b','გ':'g','დ':'d','ე':'e','ვ':'v','ზ':'z','თ':'th','ი':'i','კ':'k','ლ':'l','მ':'m','ნ':'n','ო':'o','პ':'p','ჟ':'zh','რ':'r','ს':'s','ტ':'t','უ':'u','ფ':'f','ქ':'q','ღ':'gh','ყ':'q','შ':'sh','ჩ':'ch','ც':'ts','ძ':'dz','წ':'ts','ჭ':'ch','ხ':'kh','ჯ':'j','ჰ':'h'};
@@ -691,114 +467,139 @@ function g2l(t){return[...t].map(c=>G2L[c]||c).join('')}
 function isGeo(t){return/[ა-ჿ]/.test(t)}
 
 // ── API ──
-async function apiTranslate(text,from,to){
-  const r=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}&de=kartulat@app.ge`);
-  if(!r.ok)throw new Error('net');
-  const d=await r.json();
-  return d.responseData?.translatedText||'';
+async function apiTranslate(text, from, to) {
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('net');
+  const d = await r.json();
+  if (d.responseStatus !== 200) throw new Error('api');
+  return d.responseData?.translatedText || '';
 }
 
 // ── UI refs ──
-const $=id=>document.getElementById(id);
-const inp=$('inp'),rGeo=$('r-geo'),rTr=$('r-tr');
-const geoPh=$('geo-ph'),trPh=$('tr-ph');
-const btn=$('btn'),spin=$('spin');
-const langSel=$('lang'),note=$('note'),toast=$('toast');
-const trLbl=$('tr-lbl'),inLbl=$('in-lbl');
-let mode='lat2ru',ic=0;
+const $ = id => document.getElementById(id);
+const inp=$('inp'), rGeo=$('r-geo'), rTr=$('r-tr');
+const geoPh=$('geo-ph'), trPh=$('tr-ph');
+const btn=$('btn'), spin=$('spin');
+const langSel=$('lang'), note=$('note'), toast=$('toast');
+const trLbl=$('tr-lbl'), inLbl=$('in-lbl');
 
 // Seg tabs
-document.querySelectorAll('.seg-btn').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.seg-btn').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on'); mode=b.dataset.mode; reset();
-    const d=T[uiLang]||T.ru;
-    inp.placeholder = mode==='lat2ru' ? d.ph1 : d.ph2;
-    inLbl.textContent = mode==='lat2ru' ? d.lblLat : d.yourText;
+document.querySelectorAll('.seg-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.seg-btn').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    mode = b.dataset.mode;
+    reset();
+    const d = T[uiLang] || T.ru;
+    inp.placeholder = mode === 'lat2ru' ? d.ph1 : d.ph2;
+    inLbl.textContent = mode === 'lat2ru' ? d.lblLat : d.yourText;
   });
 });
 
-langSel.addEventListener('change',()=>{
-  const d=T[uiLang]||T.ru;
-  trLbl.textContent = d.lblTrans+' ('+langSel.value.toUpperCase()+')';
+langSel.addEventListener('change', () => {
+  const d = T[uiLang] || T.ru;
+  trLbl.textContent = d.lblTrans + ' (' + langSel.value.toUpperCase() + ')';
 });
 
-inp.addEventListener('input',()=>$('cc').textContent=inp.value.length);
-$('clr').addEventListener('click',()=>{inp.value='';$('cc').textContent=0;reset();inp.focus()});
+inp.addEventListener('input', () => $('cc').textContent = inp.value.length);
+$('clr').addEventListener('click', () => { inp.value = ''; $('cc').textContent = 0; reset(); inp.focus(); });
 
-function reset(){
-  setGeo('');setTr('');
-  geoPh.style.display='';trPh.style.display='';
+function reset() {
+  setGeo(''); setTr('');
+  geoPh.style.display = '';
+  trPh.style.display = '';
   note.classList.remove('show');
 }
-function setGeo(txt){
-  [...rGeo.childNodes].filter(n=>n.nodeType===3).forEach(n=>n.remove());
-  if(txt){geoPh.style.display='none';rGeo.insertBefore(document.createTextNode(txt),geoPh)}
-  else geoPh.style.display='';
+function setGeo(txt) {
+  [...rGeo.childNodes].filter(n => n.nodeType === 3).forEach(n => n.remove());
+  if (txt) { geoPh.style.display = 'none'; rGeo.insertBefore(document.createTextNode(txt), geoPh); }
+  else geoPh.style.display = '';
 }
-function setTr(txt){
-  [...rTr.childNodes].filter(n=>n.nodeType===3).forEach(n=>n.remove());
-  if(txt){trPh.style.display='none';rTr.insertBefore(document.createTextNode(txt),trPh)}
-  else trPh.style.display='';
+function setTr(txt) {
+  [...rTr.childNodes].filter(n => n.nodeType === 3).forEach(n => n.remove());
+  if (txt) { trPh.style.display = 'none'; rTr.insertBefore(document.createTextNode(txt), trPh); }
+  else trPh.style.display = '';
 }
 
-function mkCopy(id,get){
-  $(id).addEventListener('click',async()=>{
-    const t=get();if(!t)return;
-    try{await navigator.clipboard.writeText(t)}catch{}
-    const b=$(id),w=b.textContent;
-    b.textContent=(T[uiLang]||T.ru).copied;b.classList.add('ok');
-    setTimeout(()=>{b.textContent=w;b.classList.remove('ok')},1600);
+function mkCopy(id, get) {
+  $(id).addEventListener('click', async () => {
+    const t = get(); if (!t) return;
+    try { await navigator.clipboard.writeText(t); } catch(e) {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    const b = $(id), w = b.textContent;
+    b.textContent = (T[uiLang] || T.ru).copied;
+    b.classList.add('ok');
+    setTimeout(() => { b.textContent = w; b.classList.remove('ok'); }, 1600);
   });
 }
-mkCopy('cp-geo',()=>[...rGeo.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(''));
-mkCopy('cp-tr', ()=>[...rTr.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(''));
+mkCopy('cp-geo', () => [...rGeo.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(''));
+mkCopy('cp-tr',  () => [...rTr.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(''));
 
 // ── Translate ──
-btn.addEventListener('click',go);
-inp.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')go()});
+btn.addEventListener('click', go);
+inp.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') go(); });
 
-async function go(){
-  const raw=inp.value.trim();
-  const d=T[uiLang]||T.ru;
-  if(!raw){showT(d.noInput);return}
+async function go() {
+  const raw = inp.value.trim();
+  const d = T[uiLang] || T.ru;
+  if (!raw) { showT(d.noInput); return; }
   note.classList.remove('show');
   setLoading(true);
-  try{
-    if(mode==='lat2ru'){
-      const geo=isGeo(raw)?raw:l2g(raw);
+  try {
+    if (mode === 'lat2ru') {
+      const geo = isGeo(raw) ? raw : l2g(raw);
       setGeo(geo);
-      try{
-        const tr=await apiTranslate(geo,'ka',langSel.value);
-        setTr(tr||(T[uiLang]||T.ru).geoEmpty);
-      }catch{
-        setTr('');trPh.style.display='';
-        note.querySelector('.note-body').innerHTML=d.noteText;
+      try {
+        const tr = await apiTranslate(geo, 'ka', langSel.value);
+        setTr(tr || d.geoEmpty);
+      } catch {
+        setTr('');
+        note.querySelector('.note-body').innerHTML = d.noteText;
         note.classList.add('show');
       }
-    }else{
-      try{
-        const geo=await apiTranslate(raw,langSel.value,'ka');
-        setGeo(g2l(geo));setTr(geo);
-      }catch{
-        note.querySelector('.note-body').innerHTML=d.noteText;
+    } else {
+      try {
+        const geo = await apiTranslate(raw, langSel.value, 'ka');
+        setGeo(g2l(geo));
+        setTr(geo);
+      } catch {
+        note.querySelector('.note-body').innerHTML = d.noteText;
         note.classList.add('show');
       }
     }
-    ic++;if(ic%5===0)showT('💡 Ad block every 5 translations');
-  }catch{showT((T[uiLang]||T.ru).errTry)}
-  finally{setLoading(false)}
+  } catch { showT(d.errTry); }
+  finally { setLoading(false); }
 }
-function setLoading(v){btn.disabled=v;spin.style.display=v?'block':'none'}
-function showT(m){toast.textContent=m;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2800)}
 
-// ── Theme ──
-let th=localStorage.getItem('kl-th')||'system';applyTh(th);
-$('theme-btn').addEventListener('click',()=>{th=th==='light'?'dark':th==='dark'?'system':'light';localStorage.setItem('kl-th',th);applyTh(th)});
-function applyTh(t){const r=document.documentElement;t==='dark'?r.setAttribute('data-theme','dark'):t==='light'?r.setAttribute('data-theme','light'):r.removeAttribute('data-theme')}
+function setLoading(v) { btn.disabled = v; spin.style.display = v ? 'block' : 'none'; }
+function showT(m) { toast.textContent = m; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2800); }
 
-// ── PWA ──
-const mf={name:'KartuLat',short_name:'KartuLat',display:'standalone',background_color:'#F5F4F2',theme_color:'#8B1E1E',start_url:'./',icons:[{src:"data:image/svg+xml,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='44' fill='%238B1E1E'/><text x='96' y='138' text-anchor='middle' font-size='108' font-family='serif' fill='white'>კ</text></svg>`),sizes:'192x192',type:'image/svg+xml'}]};
-const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/json'}));document.head.appendChild(ml);
-if('serviceWorker' in navigator){const sw=`const C='kl-v3';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))))`;navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{})}
+// ── iOS PWA Modal ──
+$('ios-card').addEventListener('click', () => $('ios-modal').classList.add('open'));
+$('modal-close').addEventListener('click', () => $('ios-modal').classList.remove('open'));
+$('ios-modal').addEventListener('click', e => { if (e.target === $('ios-modal')) $('ios-modal').classList.remove('open'); });
+
+// ── Android Modal ──
+$('and-card').addEventListener('click', () => $('and-modal').classList.add('open'));
+$('and-modal').addEventListener('click', e => { if (e.target === $('and-modal')) $('and-modal').classList.remove('open'); });
+
+// ── PWA / Service Worker ──
+const mf = {name:'KartuLat',short_name:'KartuLat',display:'standalone',background_color:'#F5F4F2',theme_color:'#8B1E1E',start_url:'./',icons:[{src:"data:image/svg+xml,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='44' fill='%238B1E1E'/><text x='96' y='138' text-anchor='middle' font-size='108' font-family='serif' fill='white'>კ</text></svg>`),sizes:'192x192',type:'image/svg+xml'}]};
+const ml = document.createElement('link');
+ml.rel = 'manifest';
+ml.href = URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/json'}));
+document.head.appendChild(ml);
+
+if ('serviceWorker' in navigator) {
+  const sw = `const C='kl-v4';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))))`;
+  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
+}
 </script>
+</body>
+</html>
