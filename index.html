@@ -391,7 +391,6 @@ const T = {
   uk:{heroTitle:'Грузинська<br>без <em>меж</em>',heroSub:'Отримали SMS латиницею? KartuLat миттєво перекладає.',tab1:'Латиниця → Переклад',tab2:'Текст → Груз. латиниця',langLbl:'Мова перекладу',translateBtn:'Перекласти',hintKey:'Ctrl + Enter',lblLat:'ЛАТИНИЦЯ',lblGeo:'ГРУЗИНСЬКА',lblTrans:'ПЕРЕКЛАД',geoEmpty:'Тут з\'явиться грузинський текст…',transEmpty:'Тут з\'явиться переклад…',noteText:'<b>Транслітерацію виконано.</b>',clear:'Очистити',symb:'симв.',copy:'⎘ копіювати',copied:'✓ готово',pill1:'SMS латиниця',pill2:'Офлайн',pill3:'11 мов',pill4:'PWA',secAvail:'Доступно скрізь',iosName:'iPhone / iPad',iosDesc:'Safari → Головний екран.',andName:'Android',andDesc:'Офлайн застосунок.',tgName:'Telegram Бот',tgDesc:'Переклад у чаті.',badgeLive:'Доступно',badgeSoon:'Незабаром',privacy:'Конфіденційність',yourText:'ВАШ ТЕКСТ',noInput:'Введіть текст',errTry:'Помилка.',ph1:'gamarjoba!',ph2:'Введіть текст…',iosModal:'Додати на екран'},
   de:{heroTitle:'Georgisch<br>ohne <em>Grenzen</em>',heroSub:'SMS in georgianischen Buchstaben? KartuLat übersetzt sofort.',tab1:'Latein → Übersetzung',tab2:'Text → Georg. Latein',langLbl:'Zielsprache',translateBtn:'Übersetzen',hintKey:'Ctrl + Enter',lblLat:'LATEINISCH',lblGeo:'GEORGISCH',lblTrans:'ÜBERSETZUNG',geoEmpty:'Georgischer Text erscheint hier…',transEmpty:'Übersetzung erscheint hier…',noteText:'<b>Transliteration abgeschlossen.</b>',clear:'Löschen',symb:'Zeichen',copy:'⎘ kopieren',copied:'✓ fertig',pill1:'Georgisches SMS-Latein',pill2:'Offline',pill3:'11 Sprachen',pill4:'PWA',secAvail:'Überall verfügbar',iosName:'iPhone / iPad',iosDesc:'Über Safari zum Startbildschirm.',andName:'Android',andDesc:'Native App mit Offline.',tgName:'Telegram-Bot',tgDesc:'Übersetzung im Chat.',badgeLive:'Jetzt verfügbar',badgeSoon:'Demnächst',privacy:'Datenschutz',yourText:'IHR TEXT',noInput:'Text eingeben',errTry:'Fehler.',ph1:'gamarjoba!',ph2:'Text eingeben…',iosModal:'Zum Startbildschirm'},
 };
-// fill remaining langs (kk, hy, az, pt) with ru fallback
 ['kk','hy','az','pt'].forEach(l => T[l] = {...T.ru});
 
 // ── State — declare BEFORE applyLang ──
@@ -466,14 +465,14 @@ function l2g(t){let o='',i=0,l=t.toLowerCase();while(i<l.length){let h=false;for
 function g2l(t){return[...t].map(c=>G2L[c]||c).join('')}
 function isGeo(t){return/[ა-ჿ]/.test(t)}
 
-// ── API ──
+// ── API — Google Translate (free endpoint) ──
 async function apiTranslate(text, from, to) {
-  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
   const r = await fetch(url);
   if (!r.ok) throw new Error('net');
   const d = await r.json();
-  if (d.responseStatus !== 200) throw new Error('api');
-  return d.responseData?.translatedText || '';
+  if (!d || !d[0]) throw new Error('api');
+  return d[0].map(s => s[0]).join('');
 }
 
 // ── UI refs ──
@@ -526,7 +525,6 @@ function mkCopy(id, get) {
   $(id).addEventListener('click', async () => {
     const t = get(); if (!t) return;
     try { await navigator.clipboard.writeText(t); } catch(e) {
-      // fallback
       const ta = document.createElement('textarea');
       ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
       document.body.appendChild(ta); ta.select(); document.execCommand('copy');
