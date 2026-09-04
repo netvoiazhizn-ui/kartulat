@@ -473,25 +473,37 @@ function l2g(t){let o='',i=0,l=t.toLowerCase();while(i<l.length){let h=false;for
 function g2l(t){return[...t].map(c=>G2L[c]||c).join('')}
 function isGeo(t){return/[ა-ჿ]/.test(t)}
 
-// ── API — Google Translate (gtx + Safari fallback) ──
+// ── API — Google Translate (gtx) + LibreTranslate fallback for Safari ──
 async function apiTranslate(text, from, to) {
-  const urls = [
-    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`,
-    `https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=${from}&tl=${to}&q=${encodeURIComponent(text)}`
-  ];
-  for (const url of urls) {
-    try {
-      const r = await fetch(url, {mode:'cors', credentials:'omit'});
-      if (!r.ok) continue;
+  // 1. Google GTX (works on Chrome/Android)
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
+    const r = await fetch(url, {mode:'cors', credentials:'omit'});
+    if (r.ok) {
       const d = await r.json();
-      if (!d) continue;
-      // gtx format: d[0] array of [text, ...]
-      if (Array.isArray(d[0]) && d[0][0]) return d[0].map(s => s[0]).join('');
-      // dict-chrome-ex format: d.sentences or d[0][0][0]
-      if (d.sentences) return d.sentences.map(s => s.trans||'').join('');
-      if (typeof d[0] === 'string') return d[0];
-    } catch {}
-  }
+      if (d && d[0] && d[0][0]) return d[0].map(s => s[0]).join('');
+    }
+  } catch {}
+  // 2. LibreTranslate (works on Safari iOS)
+  try {
+    const r = await fetch('https://translate.argosopentech.com/translate', {
+      method:'POST', mode:'cors', credentials:'omit',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({q:text, source:from, target:to, format:'text'})
+    });
+    if (r.ok) {
+      const d = await r.json();
+      if (d && d.translatedText) return d.translatedText;
+    }
+  } catch {}
+  // 3. MyMemory last resort
+  try {
+    const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`, {mode:'cors', credentials:'omit'});
+    if (r.ok) {
+      const d = await r.json();
+      if (d && d.responseData && d.responseData.translatedText) return d.responseData.translatedText;
+    }
+  } catch {}
   throw new Error('all failed');
 }
 
@@ -564,7 +576,8 @@ btn.addEventListener('click', go);
 inp.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') go(); });
 
 async function go() {
-  const raw = inp.value.trim();
+  const rawAll = inp.value.trim();
+  const raw = rawAll.split('\n').filter(l => !/[\u0400-\u04FF]/.test(l)).join('\n').trim();
   const d = T[uiLang] || T.ru;
   if (!raw) { showT(d.noInput); return; }
   note.classList.remove('show');
