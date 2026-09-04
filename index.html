@@ -459,7 +459,7 @@ document.getElementById('theme-btn').addEventListener('click', () => {
 });
 
 // ── Transliteration ──
-const L2G=[['sh','შ'],['ch','ჩ'],['zh','ჟ'],['gh','ღ'],['kh','ხ'],['ph','ფ'],['dz','ძ'],['ts','ც'],['th','თ'],['dj','ჯ'],['a','ა'],['b','ბ'],['g','გ'],['d','დ'],['e','ე'],['v','ვ'],['z','ზ'],['t','ტ'],['i','ი'],['k','კ'],['l','ლ'],['m','მ'],['n','ნ'],['o','ო'],['p','პ'],['r','რ'],['s','ს'],['u','უ'],['f','ფ'],['q','ყ'],['w','ვ'],['x','ხ'],['y','ი'],['j','ჯ'],['h','ჰ'],['c','ც']];
+const L2G=[['sh','შ'],['ch','ჩ'],['zh','ჟ'],['gh','ღ'],['kh','ხ'],['ph','ფ'],['dz','ძ'],['ts','ც'],['th','თ'],['dj','ჯ'],['a','ა'],['b','ბ'],['g','გ'],['d','დ'],['e','ე'],['v','ვ'],['z','ზ'],['t','თ'],['i','ი'],['k','კ'],['l','ლ'],['m','მ'],['n','ნ'],['o','ო'],['p','პ'],['r','რ'],['s','ს'],['u','უ'],['f','ფ'],['q','ყ'],['w','ვ'],['x','ხ'],['y','ი'],['j','ჯ'],['h','ჰ'],['c','ც']];
 const G2L={'ა':'a','ბ':'b','გ':'g','დ':'d','ე':'e','ვ':'v','ზ':'z','თ':'th','ი':'i','კ':'k','ლ':'l','მ':'m','ნ':'n','ო':'o','პ':'p','ჟ':'zh','რ':'r','ს':'s','ტ':'t','უ':'u','ფ':'f','ქ':'q','ღ':'gh','ყ':'q','შ':'sh','ჩ':'ch','ც':'ts','ძ':'dz','წ':'ts','ჭ':'ch','ხ':'kh','ჯ':'j','ჰ':'h'};
 function l2g(t){let o='',i=0,l=t.toLowerCase();while(i<l.length){let h=false;for(const[a,b]of L2G){if(l.startsWith(a,i)){o+=b;i+=a.length;h=true;break}}if(!h){o+=t[i];i++}}return o}
 function g2l(t){return[...t].map(c=>G2L[c]||c).join('')}
@@ -595,7 +595,7 @@ ml.href = URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/j
 document.head.appendChild(ml);
 
 if ('serviceWorker' in navigator) {
-  const sw = `const C='kl-v4';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))))`;
+  const sw = `const C='kl-v5'self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))))`;
   navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
 }
 </script>
