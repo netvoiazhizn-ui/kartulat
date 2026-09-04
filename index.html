@@ -473,36 +473,30 @@ function l2g(t){let o='',i=0,l=t.toLowerCase();while(i<l.length){let h=false;for
 function g2l(t){return[...t].map(c=>G2L[c]||c).join('')}
 function isGeo(t){return/[ა-ჿ]/.test(t)}
 
-// ── API — Google Translate (gtx) + LibreTranslate fallback for Safari ──
+// ── API — Google Translate + LibreTranslate fallback ──
 async function apiTranslate(text, from, to) {
-  // 1. Google GTX (works on Chrome/Android)
-  try {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
-    const r = await fetch(url, {mode:'cors', credentials:'omit'});
-    if (r.ok) {
+  const q = encodeURIComponent(text);
+  // Try multiple Google domains — Safari may block googleapis.com but not translate.google.com
+  const googleUrls = [
+    `https://translate.google.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${q}`,
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${q}`
+  ];
+  for (const url of googleUrls) {
+    try {
+      const r = await fetch(url, {mode:'cors', credentials:'omit'});
+      if (!r.ok) continue;
       const d = await r.json();
       if (d && d[0] && d[0][0]) return d[0].map(s => s[0]).join('');
-    }
-  } catch {}
-  // 2. LibreTranslate (works on Safari iOS)
+    } catch {}
+  }
+  // LibreTranslate fallback (open source, works on Safari)
   try {
     const r = await fetch('https://translate.argosopentech.com/translate', {
       method:'POST', mode:'cors', credentials:'omit',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({q:text, source:from, target:to, format:'text'})
     });
-    if (r.ok) {
-      const d = await r.json();
-      if (d && d.translatedText) return d.translatedText;
-    }
-  } catch {}
-  // 3. MyMemory last resort
-  try {
-    const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`, {mode:'cors', credentials:'omit'});
-    if (r.ok) {
-      const d = await r.json();
-      if (d && d.responseData && d.responseData.translatedText) return d.responseData.translatedText;
-    }
+    if (r.ok) { const d = await r.json(); if (d && d.translatedText) return d.translatedText; }
   } catch {}
   throw new Error('all failed');
 }
