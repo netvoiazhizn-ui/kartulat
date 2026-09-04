@@ -190,6 +190,12 @@ footer a:hover{color:var(--accent)}
 
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:11px 22px;border-radius:12px;font-size:.83rem;font-weight:500;opacity:0;pointer-events:none;transition:opacity .22s;z-index:999;box-shadow:var(--lg);white-space:nowrap}
 .toast.show{opacity:1}
+
+.btn-photo{background:var(--s2);border:1px solid var(--b1);border-radius:14px;font-size:1.1rem;width:48px;height:48px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sm);transition:background .15s,transform .1s;flex-shrink:0}
+.btn-photo:hover{background:var(--s3);transform:scale(1.05)}
+.btn-photo:disabled{opacity:.4;cursor:default}
+.ocr-drop{border:2px dashed var(--accent);border-radius:12px;padding:20px;text-align:center;color:var(--t2);font-size:.85rem;display:none;margin:0 18px 12px;transition:background .15s}
+.ocr-drop.active{background:rgba(139,30,30,.06)}
 </style>
 </head>
 <body>
@@ -292,6 +298,8 @@ footer a:hover{color:var(--accent)}
         <span data-i18n="translateBtn">Перевести</span>
       </button>
       <span class="hint" data-i18n="hintKey">Ctrl + Enter</span>
+      <button class="btn-photo" id="btn-photo" title="Распознать текст из фото">📷</button>
+      <input type="file" id="img-inp" accept="image/*" style="display:none">
     </div>
 
     <div class="pill-row">
@@ -598,6 +606,63 @@ if ('serviceWorker' in navigator) {
   const sw = `const C='kl-v5'self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))))`;
   navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
 }
+
+
+// ── OCR — Tesseract.js ──
+let tessLoaded = false;
+async function loadTess() {
+  if (tessLoaded) return;
+  await new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+    s.onload = () => { tessLoaded = true; res(); };
+    s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
+
+async function runOCR(file) {
+  const d = T[uiLang] || T.ru;
+  const pb = $('btn-photo');
+  pb.disabled = true;
+  pb.textContent = '⏳';
+  try {
+    await loadTess();
+    const result = await Tesseract.recognize(file, 'eng', {logger: ()=>{}});
+    const text = result.data.text.trim();
+    if (text) {
+      inp.value = text;
+      $('cc').textContent = text.length;
+      go();
+    } else {
+      showT('Текст не распознан');
+    }
+  } catch(e) {
+    showT('Ошибка OCR');
+  } finally {
+    pb.disabled = false;
+    pb.textContent = '📷';
+  }
+}
+
+$('btn-photo').addEventListener('click', () => $('img-inp').click());
+$('img-inp').addEventListener('change', e => { const f = e.target.files[0]; if (f) runOCR(f); e.target.value=''; });
+
+// Paste image support
+document.addEventListener('paste', e => {
+  const item = [...(e.clipboardData?.items||[])].find(i => i.type.startsWith('image/'));
+  if (item) { e.preventDefault(); runOCR(item.getAsFile()); }
+});
+
+// Drag-drop image support
+inp.addEventListener('dragover', e => { if ([...e.dataTransfer.items].some(i=>i.type.startsWith('image/'))) { e.preventDefault(); inp.style.background='rgba(139,30,30,.06)'; }});
+inp.addEventListener('dragleave', () => { inp.style.background=''; });
+inp.addEventListener('drop', e => {
+  inp.style.background='';
+  const file = [...e.dataTransfer.files].find(f=>f.type.startsWith('image/'));
+  if (file) { e.preventDefault(); runOCR(file); }
+});
+
 </script>
 </body>
 </html>
