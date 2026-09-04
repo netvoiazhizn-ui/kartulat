@@ -467,7 +467,7 @@ document.getElementById('theme-btn').addEventListener('click', () => {
 });
 
 // ── Transliteration ──
-const L2G=[['sh','შ'],['ch','ჩ'],['zh','ჟ'],['gh','ღ'],['kh','ხ'],['ph','ფ'],['dz','ძ'],['ts','ც'],['th','თ'],['dj','ჯ'],['a','ა'],['b','ბ'],['g','გ'],['d','დ'],['e','ე'],['v','ვ'],['z','ზ'],['t','თ'],['i','ი'],['k','კ'],['l','ლ'],['m','მ'],['n','ნ'],['o','ო'],['p','პ'],['r','რ'],['s','ს'],['u','უ'],['f','ფ'],['q','ყ'],['w','ვ'],['x','ხ'],['y','ი'],['j','ჯ'],['h','ჰ'],['c','ც']];
+const L2G=[['sh','შ'],['ch','ჩ'],['zh','ჟ'],['gh','ღ'],['kh','ხ'],['ph','ფ'],['dz','ძ'],['ts','ც'],['th','თ'],['dj','ჯ'],['dgh','დღ'],['a','ა'],['b','ბ'],['g','გ'],['d','დ'],['e','ე'],['v','ვ'],['z','ზ'],['t','თ'],['i','ი'],['k','კ'],['l','ლ'],['m','მ'],['n','ნ'],['o','ო'],['p','პ'],['r','რ'],['s','ს'],['u','უ'],['f','ფ'],['q','ქ'],['w','ვ'],['x','ხ'],['y','ი'],['j','ჯ'],['h','ჰ'],['c','ც']];
 const G2L={'ა':'a','ბ':'b','გ':'g','დ':'d','ე':'e','ვ':'v','ზ':'z','თ':'th','ი':'i','კ':'k','ლ':'l','მ':'m','ნ':'n','ო':'o','პ':'p','ჟ':'zh','რ':'r','ს':'s','ტ':'t','უ':'u','ფ':'f','ქ':'q','ღ':'gh','ყ':'q','შ':'sh','ჩ':'ch','ც':'ts','ძ':'dz','წ':'ts','ჭ':'ch','ხ':'kh','ჯ':'j','ჰ':'h'};
 function l2g(t){let o='',i=0,l=t.toLowerCase();while(i<l.length){let h=false;for(const[a,b]of L2G){if(l.startsWith(a,i)){o+=b;i+=a.length;h=true;break}}if(!h){o+=t[i];i++}}return o}
 function g2l(t){return[...t].map(c=>G2L[c]||c).join('')}
@@ -633,6 +633,19 @@ async function loadTess() {
   });
 }
 
+async function cleanOCRText(text) {
+  // Remove lines that are clearly not Georgian romanization:
+  // - lines with Cyrillic characters (Russian timestamps etc)
+  // - lines that are only numbers/punctuation
+  // - lines with http URLs (keep URL text but strip)
+  return text.split('\n')
+    .map(l => l.trim())
+    .filter(l => l.length > 0)
+    .filter(l => !/[а-яА-ЯёЁ]/.test(l))  // no Cyrillic
+    .filter(l => !/^[\d\s:./,+*#@!?%-]+$/.test(l))  // not just symbols/numbers
+    .join('\n');
+}
+
 async function runOCR(file) {
   const d = T[uiLang] || T.ru;
   const pb = $('btn-photo');
@@ -641,7 +654,7 @@ async function runOCR(file) {
   try {
     await loadTess();
     const result = await Tesseract.recognize(file, 'eng', {logger: ()=>{}});
-    const text = result.data.text.trim();
+    const text = await cleanOCRText(result.data.text);
     if (text) {
       inp.value = text;
       $('cc').textContent = text.length;
